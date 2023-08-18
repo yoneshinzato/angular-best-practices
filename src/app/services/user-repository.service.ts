@@ -10,8 +10,8 @@ export class UserRepositoryService {
 
 
   saveUser(user): Observable<any> {
-    user.classes = user.classes || [];
-    this.currentUser = user;
+    const classes = user.classes || [];
+    this.currentUser = { ...user, classes: [...classes] };
 
     return EMPTY.pipe(delay(1000));
   }
@@ -23,7 +23,7 @@ export class UserRepositoryService {
     if (this.currentUser.classes.includes(classId))
       return throwError(() => new Error('Already enrolled'));
 
-    this.currentUser.classes.push(classId);
+    this.currentUser = { ...this.currentUser, classes: this.currentUser.classes.concat(classId) };
 
     return EMPTY.pipe(delay(1000));
   }
@@ -35,7 +35,7 @@ export class UserRepositoryService {
     if (!this.currentUser.classes.includes(classId))
       return throwError(() => new Error('Not enrolled'));
 
-    this.currentUser.classes = this.currentUser.classes.filter(c => c !== classId);
+    this.currentUser = { ...this.currentUser, classes: this.currentUser.classes.filter(c => c !== classId)}
 
     return EMPTY.pipe(delay(3000));
   }
@@ -58,7 +58,7 @@ export class UserRepositoryService {
   }
 }
 
-const USERS = [{
+const users = [{
   userId: 'e61aebed-dbc5-437a-b514-02b8380d8efc',
   firstName: 'Jim',
   lastName: 'Cooper',
