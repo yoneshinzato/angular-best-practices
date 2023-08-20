@@ -6,5 +6,5 @@ import {Component} from '@angular/core'
   inputs: ['loading']
 })
 export class LoadingSpinnerComponent {
-  loading:boolean
+  loading: boolean = false
 }

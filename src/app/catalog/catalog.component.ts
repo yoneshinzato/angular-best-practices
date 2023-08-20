@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 
 import { UserRepositoryService } from "../services/user-repository.service"
 import { CatalogRepositoryService } from './catalog-repository.service';
+import { IClass } from './class.model';
 
 @Component({
   styleUrls: ['./catalog.component.css'],
   templateUrl: './catalog.component.html'
 })
 export class CatalogComponent {
-  classes:any[];
-  visibleClasses:any[];
+  classes: IClass[] = [];
+  visibleClasses: IClass[] = [];
 
   constructor(public catalogRepository:CatalogRepositoryService, public userRepositoryService: UserRepositoryService) {}
 
@@ -18,7 +19,7 @@ export class CatalogComponent {
       .subscribe(classes => { this.classes = classes; this.applyFilter('')});
   }
 
-  enroll(classToEnroll) {
+  enroll(classToEnroll: IClass) {
     classToEnroll.processing = true;
     this.userRepositoryService.enroll(classToEnroll.classId)
       .subscribe(
@@ -28,7 +29,7 @@ export class CatalogComponent {
       );
   }
 
-  drop(classToDrop) {
+  drop(classToDrop: IClass) {
     classToDrop.processing = true;
     this.userRepositoryService.drop(classToDrop.classId)
       .subscribe(
@@ -38,7 +39,7 @@ export class CatalogComponent {
       );
   }
 
-  applyFilter(filter) {
+  applyFilter(filter: string) {
     if (!filter)
       return this.visibleClasses = this.classes;
 
