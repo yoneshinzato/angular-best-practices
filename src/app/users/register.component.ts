@@ -35,14 +35,18 @@ export class RegisterComponent {
 
   registerUser(user: IUser) {
     this.saving=true;
-    this.userRepository.saveUser(user)
-      .subscribe(
-        null,
-        ()=>this.saving=false,
-        () => this.router.navigate(['/catalog']));
+    this._saveAndRedirect(user);
   }
 
   cancel() {
     this.router.navigate(['/']);
+  }
+
+  private _saveAndRedirect(user: IUser) {
+    this.userRepository.saveUser(user)
+      .subscribe(
+        null,
+        ()=>this.saving = false,
+        () => this.router.navigate(['/catalog']));
   }
 }
