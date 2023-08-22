@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CatalogRepositoryService } from './catalog-repository.service';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { FilterClassesService } from './filter-classes.service';
 
 @NgModule({
   imports: [
@@ -9,6 +10,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   declarations: [],
-  providers: [ CatalogRepositoryService ]
+  providers: [ CatalogRepositoryService, FilterClassesService ]
 })
 export class CatalogModule { }
